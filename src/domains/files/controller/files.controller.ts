@@ -5,7 +5,7 @@ import { ILogger } from '../../../logger/logger.service.interface';
 import { NextFunction, Request, Response } from 'express';
 import { IFilesController } from './files.controller.interface';
 import { IFilesService } from '../service/files.service.interface';
-import { UploadMiddleware } from '../upload.middleware';
+import { FilesMiddleware } from '../files.middleware';
 
 @injectable()
 export class FilesController extends BaseController implements IFilesController {
@@ -20,7 +20,7 @@ export class FilesController extends BaseController implements IFilesController 
         path: '',
         method: 'post',
         func: this.upload,
-        middlewares: [new UploadMiddleware()],
+        middlewares: [new FilesMiddleware()],
       },
     ]);
   }

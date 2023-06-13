@@ -7,6 +7,7 @@ import { TYPES } from './types';
 import { IExceptionFilter } from './errors/exception.filter.interface';
 import { PrismaService } from './database/prisma.service';
 import { IFilesController } from './domains/files/controller/files.controller.interface';
+import { path } from 'app-root-path';
 
 @injectable()
 export class App {
@@ -26,6 +27,7 @@ export class App {
 
   useMiddleware(): void {
     this.app.use(json());
+    this.app.use('', express.static(`${path}/uploads`));
   }
 
   useRoutes(): void {

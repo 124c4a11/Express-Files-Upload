@@ -23,7 +23,7 @@ export class FilesService implements IFilesService {
         const buffer = await this.convertToWebP(file.buffer);
 
         newFile = new FileEntity({
-          originalname: `${file.originalname.split('.')[0]}.webp`,
+          originalname: `${file.originalname.split('.')[0]}_${Date.now()}.webp`,
           buffer,
         });
       } else {
@@ -32,7 +32,7 @@ export class FilesService implements IFilesService {
 
       await writeFile(`${uploadFolder}/${newFile.originalname}`, newFile.buffer);
 
-      result.push({ url: `${uploadFolder}/${newFile.originalname}`, name: newFile.originalname });
+      result.push({ url: `${dateFolder}/${newFile.originalname}`, name: newFile.originalname });
     }
 
     return result;
