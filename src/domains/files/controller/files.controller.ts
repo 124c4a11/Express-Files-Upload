@@ -17,7 +17,7 @@ export class FilesController extends BaseController implements IFilesController 
 
     this.bindRoutes([
       {
-        path: '/upload',
+        path: '',
         method: 'post',
         func: this.upload,
         middlewares: [new UploadMiddleware()],
@@ -25,11 +25,11 @@ export class FilesController extends BaseController implements IFilesController 
     ]);
   }
 
-  async upload(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async upload({ files }: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      console.log(req);
+      const result = await this.filesService.upload(files as Express.Multer.File[]);
 
-      this.ok(res, 'Ok');
+      this.ok(res, result);
     } catch (err) {
       next(err);
     }

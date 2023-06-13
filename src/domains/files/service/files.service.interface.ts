@@ -1,3 +1,5 @@
+import { FileResponseDto } from '../dto/file-response.dto';
+
 export interface IFilesService {
-  upload: () => Promise<any>;
+  upload: (files: Express.Multer.File[]) => Promise<FileResponseDto[]>;
 }
