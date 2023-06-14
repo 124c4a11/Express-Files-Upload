@@ -22,12 +22,31 @@ export class FilesController extends BaseController implements IFilesController 
         func: this.upload,
         middlewares: [new FilesMiddleware()],
       },
+      {
+        path: '',
+        method: 'delete',
+        func: this.delete,
+      },
     ]);
   }
 
   async upload({ files }: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const result = await this.filesService.upload(files as Express.Multer.File[]);
+
+      this.ok(res, result);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async delete(
+    { body: { path } }: Request<{}, {}, { path: string }>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const result = await this.filesService.delete(path);
 
       this.ok(res, result);
     } catch (err) {

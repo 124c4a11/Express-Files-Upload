@@ -3,4 +3,5 @@ import { BaseController } from '../../../common/base.controller';
 
 export interface IFilesController extends BaseController {
   upload: (req: Request, res: Response, next: NextFunction) => void;
+  delete: (req: Request, res: Response, next: NextFunction) => void;
 }
